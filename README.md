@@ -9,34 +9,39 @@ The project was implemented in the P4 Tutorial Virtual Machine. Additionally we 
 ## Running the program
 
 First, in the directory of the project, we need to build our Mininet. 
-> make
+> make 
+
 This command will build the program, and set up the network with the corresponding topology.\
 
 After this, in a separate terminal we should run the controller.py file.
 > python ./controller.py
+
 This is the Control Plane of the network. We can add two number parameters(maximum number of decision trees[1,5], maximum depth of trees [2,5])(default 5 5)\
 
 If the controller is done, we can start to send packages between the two hosts. We should write the next command in the terminal of the Mininet to achieve this.
 > xterm h1 h2
+
 Two new terminal should appear on the screen.\
 
 We have to start the receive.py script on the second host(h2).
 > python ./receive.py
+
 With this the h2 host will begin to listen for incoming packets.\
 
 Now we can send our packets to the network. In the first host(h1) run the randomforest.py script.
 > python ./randomforest.py
+
 The host should start to send the packets to the network, and we should see them arrive on the other host.
 
 ## About the program
 
 ### Network
-'''
+```
 h1 -- s1 -- s2 -- s3 -- s4 -- s5
        |_____|_____|_____|_____|
                    |
                    s6 -- h2
-'''
+```
 ### Data plane
 We define two different P4 programs. The decisiontree.p4 will be installed on the first five switch, while the sixth switch will have the prediction.p4 file.\
 The desiciontree.p4 represents a single decision tree in the forest. Every level of the tree translates into a table in the pipeline. The maximum depth of a tree is 5 
